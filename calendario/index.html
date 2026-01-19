@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>External JSON Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <button class="nav-btn" onclick="changeMonth(-1)">❮</button>
+        <div class="current-label" id="monthYearDisplay"></div>
+        <button class="nav-btn" onclick="changeMonth(1)">❯</button>
+    </div>
+
+    <div class="calendar-card">
+        <div class="grid" id="calendarGrid"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
