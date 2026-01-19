@@ -25,3 +25,32 @@ body { font-family: 'Segoe UI', sans-serif; background: #f3f3f3; padding: 20px; 
 
         .type-label { font-size: 12px; color: #666; margin-bottom: 5px; }
         .btn { margin-top: auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; text-align: center; }
+        /* Navigation Styling */
+.top-nav {
+    display: flex;
+    justify-content: flex-end; /* Aligns links to the right */
+    gap: 20px;
+    background: white;
+    padding: 15px 30px;
+    margin: -20px -20px 30px -20px; /* Counteracts body padding to span full width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: capitalize;
+    transition: color 0.2s ease;
+}
+
+.top-nav a:hover {
+    color: #007bff; /* Matches your .btn color */
+}
+
+/* Optional: Style the Settings link specifically if needed */
+.nav-link {
+    display: flex;
+    align-items: center;
+}
