@@ -7,6 +7,13 @@
     "priority" : "Vital"
   },
   {
+    "type": "repo",
+    "title": "Dree apis",
+    "description": " It includes an extensive list of public APIs from many domains that you can use for your own products. Consider it a treasure trove of APIs well-managed by the community over the years.",
+    "link": "  https://github.com/public-apis/public-apis",
+    "priority" : "Vital"
+  },
+  {
     "type": "md",
     "title": "Syntax in md",
     "description": "Reference for Markdown syntax",
