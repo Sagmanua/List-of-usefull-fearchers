@@ -1,16 +1,11 @@
 let tasks = [];
 let viewDate = new Date();
 
-// Fetch the external JSON file
-async function loadTasks() {
-    try {
-        const response = await fetch('data.json');
-        tasks = await response.json();
-        render();
-    } catch (error) {
-        console.error("Could not load tasks:", error);
-    }
-}
+const monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+];
+const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function changeMonth(offset) {
     viewDate.setMonth(viewDate.getMonth() + offset);
@@ -18,47 +13,52 @@ function changeMonth(offset) {
 }
 
 function render() {
-    const grid = document.getElementById('calendarGrid');
-    const display = document.getElementById('monthYearDisplay');
+    const grid = document.getElementById("calendarGrid");
+    const display = document.getElementById("monthYearDisplay");
+
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
-
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    display.innerText = `${monthNames[month]} ${year}`;
-    
-    grid.innerHTML = '';
-    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach(day => {
-        const div = document.createElement('div');
-        div.className = 'day-header';
-        div.innerText = day;
-        grid.appendChild(div);
-    });
-
-    const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayIndex = new Date(year, month, 1).getDay();
 
-    for (let x = 0; x < firstDay; x++) {
-        const empty = document.createElement('div');
-        empty.className = 'day';
-        grid.appendChild(empty);
-    }
+    display.textContent = `${monthNames[month]} ${year}`;
+    grid.innerHTML = "";
 
-    for (let i = 1; i <= daysInMonth; i++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day';
-        dayDiv.innerHTML = `<div class="day-num">${i}</div>`;
+    weekDays.forEach(day => grid.appendChild(makeDiv("day-header", day)));
 
-        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-        tasks.filter(t => t.date === dateKey).forEach(task => {
-            const tDiv = document.createElement('div');
-            tDiv.className = 'task';
-            tDiv.innerText = task.name;
-            dayDiv.appendChild(tDiv);
-        });
+    grid.append(...Array(firstDayIndex).fill(makeDiv("day")));
 
-        grid.appendChild(dayDiv);
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+        const dayEl = makeDiv("day", `<div class="day-num">${day}</div>`);
+
+        tasks
+            .filter(t => t.date === dateKey)
+            .forEach(t => dayEl.appendChild(makeDiv("task", t.name)));
+
+        grid.appendChild(dayEl);
     }
 }
 
-// Start the app
+function makeDiv(className, html = "") {
+    const d = document.createElement("div");
+    d.className = className;
+    d.innerHTML = html;
+    return d;
+}
+
+async function loadTasks() {
+    try {
+        const response = await fetch('data.json');
+        tasks = await response.json();
+
+        const extra = JSON.parse(localStorage.getItem("extraTasks")) || [];
+        tasks = [...tasks, ...extra];
+
+        render();
+    } catch (error) {
+        console.error("Could not load tasks:", error);
+    }
+}
+
 loadTasks();

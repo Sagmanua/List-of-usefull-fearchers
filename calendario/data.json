@@ -1,5 +1,7 @@
 [
   { "name": "Pay Rent", "date": "2026-01-01" },
   { "name": "Annual Review", "date": "2026-06-15" },
-  { "name": "New Year Party", "date": "2026-12-31" }
+  { "name": "New Year Party", "date": "2026-12-31" },
+  { "name": "Sistemas informaticos ej. El Registro", "date": "2026-02-02" },
+  { "name": "IPE ej Video de clase", "date": "2026-01-26"}
 ]

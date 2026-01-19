@@ -16,7 +16,21 @@
     <div class="calendar-card">
         <div class="grid" id="calendarGrid"></div>
     </div>
+    <button id="addTaskBtn" class="add-circle">+</button>
 
-    <script src="script.js"></script>
+    <div id="taskPopup" class="popup hidden">
+        <div class="popup-content">
+            <h3>Add Task</h3>
+
+            <input id="taskName" placeholder="Task name">
+            <input id="taskDate" type="date">
+
+            <button onclick="saveNewTask()">Save</button>
+            <button onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+<script src="addTask.js"></script>
 </body>
 </html>
