@@ -1,153 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>My Notes</title>
-<style>
-body {
-font-family: Arial, sans-serif;
-background: #f3f3f3;
-padding: 20px;
-}
-h1 { text-align: center; }
-.deck {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-gap: 20px;
-}
-.card {
-background: white;
-padding: 15px;
-border-radius: 10px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.card h3 { margin-top: 0; }
-.btn {
-display: inline-block;
-margin-top: 10px;
-padding: 8px 12px;
-background: #007bff;
-color: white;
-text-decoration: none;
-border-radius: 5px;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Notes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Simple Deck of Notes</h1>
-<div class="deck" id="deck"></div>
 
+    <h1>Simple Deck of Notes</h1>
 
-<script>
-// JSON DATA (you can also store this in a separate .json file)
-// page video program
-const notesData = [
-{
-type: "page",
-title: "Download logos with out back ground",
-description: "Here you can doanload logos of famous compay withouot back ground",
-link: "https://www.flaticon.com/ "
-},
-{
-type: "md",
-title: "Syntax in md",
-description: "",
-link: "https://github.com/Sagmanua/List-of-usefull-fearchers/blob/main/Markdown.md"
-},
-{
-type: "program",
-title: "Create decription of repo",
-description: "Create file with all information that have this repo",
-link: "https://github.com/jocarsa/jocarsa-lightgoldenrodyellow"
-},
-{
-type: "page",
-title: "The best way to do diagramas",
-description: "",
-link: "https://jocarsa.github.io/diagrama/"
-},
-{
-type: "page",
-title: "Json you can easy edit json file to do it more readeble",
-description: "",
-link: "https://jsoncrack.com/"
-},
-{
-type: "page",
-title: "Tools for Frontend",
-description: "Community-built library of UI elements. Copy as HTML/CSS, Tailwind, React and Figma.",
-link: "https://uiverse.io/"
-},
-{
-type: "page",
-title: "Tools for Frontend",
-description: "A free set of online tools for everyday tech tasks right in your browser.",
-link: "https://it-tools.tech/"
-},
-{
-type: "program",
-title: "inkscape",
-description: "Tool to create image in svg ",
-link: "https://www.youtube.com/shorts/ml1aGQn32z4"
-},
+    <div class="controls">
+        <select id="typeFilter">
+            <option value="all">All Types</option>
+            <option value="page">Pages</option>
+            <option value="video">Videos</option>
+            <option value="program">Programs</option>
+            <option value="md">md</option>
+        </select>
 
-{
-type: "video",
-title: "Best books for programers",
-description: "Best (RU) books for beginner ",
-link: "https://www.youtube.com/shorts/ml1aGQn32z4"
-},
+        <select id="priorityFilter">
+            <option value="all">All Priorities</option>
+            <option value="Vital">Vital</option>
+            <option value="High Utility">High Utility</option>
+            <option value="Situational">Situational</option>
+            <option value="Marginal">Marginal</option>
+            <option value="Useless">Useless</option>
+        </select>
+    </div>
 
+    <div class="deck" id="deck"></div>
 
-{
-type: "page",
-title: "Documentation to all languges of programing",
-description: "",
-link: "https://devdocs.io/html/guides/comments"
-},
-
-
-
-
-
-{
-type: "video",
-title: "Ai tools",
-description: "",
-link: "https://www.youtube.com/shorts/6BbHrzwC1pY"
-},
-
-{
-type: "video",
-title: "Leet code",
-description: "describe how to do leetcode (RU)",
-link: "https://www.youtube.com/shorts/6BbHrzwC1pY"
-},
-
-];
-
-
-
-
-const deck = document.getElementById("deck");
-
-
-notesData.forEach(note => {
-const card = document.createElement("div");
-card.className = "card";
-
-
-card.innerHTML = `
-<h3>${note.title}</h3>
-<p><strong>Type:</strong> ${note.type}</p>
-<p>${note.description}</p>
-<a class="btn" href="${note.link}" target="_blank">Open Link</a>
-`;
-
-
-deck.appendChild(card);
-});
-</script>
+    <script src="script.js"></script>
 </body>
 </html>

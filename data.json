@@ -1,0 +1,88 @@
+[
+  {
+    "type": "page",
+    "title": "Download logos without background",
+    "description": "Here you can download logos of famous companies without background",
+    "link": "https://www.flaticon.com/",
+    "priority" : "Vital"
+  },
+  {
+    "type": "md",
+    "title": "Syntax in md",
+    "description": "Reference for Markdown syntax",
+    "link": "https://github.com/Sagmanua/List-of-usefull-fearchers/blob/main/Markdown.md",
+    "priority" : "Vital"
+  },
+  {
+    "type": "program",
+    "title": "Create description of repo",
+    "description": "Create file with all information that this repo has",
+    "link": "https://github.com/jocarsa/jocarsa-lightgoldenrodyellow",
+    "priority" : "Vital"
+  },
+  {
+    "type": "page",
+    "title": "The best way to do diagrams",
+    "description": "Online tool for creating diagrams quickly",
+    "link": "https://jocarsa.github.io/diagrama/",
+    "priority" : "Vital"
+  },
+  {
+    "type": "page",
+    "title": "JSON Crack",
+    "description": "Easy way to edit and visualize JSON files",
+    "link": "https://jsoncrack.com/",
+    "priority" : "High Utility"
+  },
+  {
+    "type": "page",
+    "title": "Uiverse.io",
+    "description": "Community-built library of UI elements. Copy as HTML/CSS or React.",
+    "link": "https://uiverse.io/",
+    "priority" : "High Utility"
+  },
+  {
+    "type": "page",
+    "title": "IT Tools",
+    "description": "A free set of online tools for everyday tech tasks.",
+    "link": "https://it-tools.tech/",
+    "priority" : "Situational"
+  },
+  {
+    "type": "program",
+    "title": "Inkscape",
+    "description": "Tool to create images in SVG format",
+    "link": "https://inkscape.org/",
+    "priority" : "Situational"
+  },
+    {
+    "type": "page",
+    "title": "DevDocs",
+    "description": "Documentation for all programming languages",
+    "link": "https://devdocs.io/",
+    "priority" : "Situational"
+  },
+  {
+    "type": "video",
+    "title": "Best books for programmers",
+    "description": "Best books for beginners (RU)",
+    "link": "https://www.youtube.com/shorts/ml1aGQn32z4",
+    "priority" : "Marginal"
+  },
+
+  {
+    "type": "video",
+    "title": "AI tools",
+    "description": "Short overview of AI tools",
+    "link": "https://www.youtube.com/shorts/6BbHrzwC1pY",
+    "priority" : "Marginal"
+  },
+  {
+    "type": "video",
+    "title": "LeetCode Guide",
+    "description": "Description of how to approach LeetCode (RU)",
+    "link": "https://www.youtube.com/shorts/6BbHrzwC1pY",
+    "priority" : "Useless"
+  }
+
+]
