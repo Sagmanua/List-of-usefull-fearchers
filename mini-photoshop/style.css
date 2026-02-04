@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    text-align: center;
+    padding: 20px;
+}
+
+canvas {
+    border: 1px solid grey;
+    background: white;
+    cursor: crosshair;
+}
+
+.tools {
+    margin-top: 10px;
+}
+
+button, input[type="file"], input[type="color"], input[type="range"], select {
+    padding: 6px 12px;
+    margin: 5px;
+    cursor: pointer;
+}
