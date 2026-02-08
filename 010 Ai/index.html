@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Survivor</title>
+    <link rel="stylesheet" href="stryle.css">
+</head>
+<body>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+    
+    <div id="gui">
+        <div class="header-left">
+            <div class="stat-card">
+                <span class="label">DATA COLLECTED</span>
+                <span id="score" class="value">0000</span>
+            </div>
+            <div class="stat-card wave-card">
+                <span class="label">THREAT LEVEL</span>
+                <span id="wave" class="value">1</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">SYSTEM LVL</span>
+                <span id="lvl-display" class="value">1</span>
+            </div>
+        </div>
+        
+        <div class="xp-container">
+            <div id="xp-bar"></div>
+        </div>
+        
+        <div class="controls-hint">
+            <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> TO MOVE • <span class="key space">SPACE</span> TO PULSE
+        </div>
+    </div>
+
+    <div id="upgrade-menu">
+        <h2 class="upgrade-title">SYSTEM UPGRADE DETECTED</h2>
+        <div class="upgrade-options">
+            <div class="skill-card" onclick="selectSkill('speed')">
+                <h3>OVERCLOCK</h3>
+                <p>+2 Movement Speed</p>
+            </div>
+            <div class="skill-card" onclick="selectSkill('range')">
+                <h3>WIDE PULSE</h3>
+                <p>+50 Attack Range</p>
+            </div>
+            <div class="skill-card" onclick="selectSkill('xp')">
+                <h3>DATA LINK</h3>
+                <p>+25% XP Gain</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over">
+        <h2 class="death-title">SYSTEM CRITICAL: OFFLINE</h2>
+        <p class="final-score">DATA RECOVERED: <span id="final-score-val">0</span></p>
+        <button class="restart-btn" onclick="location.reload()">REBOOT SYSTEM</button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
