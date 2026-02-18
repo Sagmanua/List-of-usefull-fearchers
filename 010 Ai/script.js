@@ -38,11 +38,24 @@ class Npc {
         else if(side === 1) { this.x = w + 50; this.y = Math.random() * h; }
         else if(side === 2) { this.x = Math.random() * w; this.y = -50; }
         else { this.x = Math.random() * w; this.y = h + 50; }
+        
         this.size = 40;
+        // INCREASE THIS VALUE FOR SPEED: 
+        // 2 is steady, 4 is fast, 6 is very difficult
+        this.speed = 2.5 + (oleada * 0.2); 
     }
+
     mueve() {
-        this.x += (Math.random() - 0.5) * 6;
-        this.y += (Math.random() - 0.5) * 6;
+        // Calculate direction towards the player
+        let dx = (jugador.x + jugador.size/2) - (this.x + this.size/2);
+        let dy = (jugador.y + jugador.size/2) - (this.y + this.size/2);
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Normalize and move
+        if (distance > 0) {
+            this.x += (dx / distance) * this.speed;
+            this.y += (dy / distance) * this.speed;
+        }
     }
 }
 
