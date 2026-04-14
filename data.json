@@ -13,6 +13,14 @@
     "link": "  https://github.com/public-apis/public-apis",
     "priority" : "Vital"
   },
+    {
+    "type": "Web",
+    "title": "Text to MD",
+    "description": "This page is convert text to md format ",
+    "link": "  https://www.text2mdx.com/",
+    "priority" : "Vital"
+  },
+
   {
     "type": "md",
     "title": "Syntax in md",
