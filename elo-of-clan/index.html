@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoT Clan Stat Checker</title>
+    <style>
+        :root { --primary: #fb4343; --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); display: flex; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 550px; background: var(--card); padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { text-align: center; color: var(--primary); margin-top: 0; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 2rem; }
+        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #333; background: #252525; color: white; outline: none; border: 1px solid transparent; transition: 0.3s; }
+        input:focus { border-color: var(--primary); }
+        button { padding: 12px 20px; background: var(--primary); border: none; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #d43232; }
+        .result-card { border-top: 2px solid #333; padding-top: 1.5rem; display: none; }
+        .stat-group { margin-bottom: 1.2rem; }
+        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .stat-value { font-size: 1.2rem; font-weight: bold; color: #fff; }
+        .winrate-main { color: #4caf50; font-size: 2.2rem; }
+        .elo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .portal-btn { 
+            display: inline-block; width: 100%; text-align: center; padding: 12px; box-sizing: border-box;
+            background: #333; color: #fff; text-decoration: none; border-radius: 6px; font-size: 0.9rem; margin-top: 10px; font-weight: bold;
+        }
+        .portal-btn:hover { background: #444; border: 1px solid var(--primary); }
+        .error { color: #ff6b6b; text-align: center; margin-top: 10px; display: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Clan Stats</h1>
+    <div class="search-box">
+        <input type="text" id="clanInput" placeholder="Enter Clan Tag (e.g. FAME)">
+        <button onclick="fetchStats()">Search</button>
+    </div>
+    <div id="error" class="error"></div>
+
+    <div id="result" class="result-card">
+        <div class="stat-group">
+            <div class="stat-label">Clan</div>
+            <div id="clanName" class="stat-value"></div>
+        </div>
+
+        <div class="stat-group">
+            <div class="stat-label">Total Stronghold Win Rate</div>
+            <div id="totalWinRate" class="stat-value winrate-main">-</div>
+        </div>
+
+        <div class="elo-grid">
+            <div class="stat-group">
+                <div class="stat-label">Elo Tier X</div>
+                <div id="elo10" class="stat-value">-</div>
+            </div>
+            <div class="stat-group">
+                <div class="stat-label">Elo Tier VIII</div>
+                <div id="elo8" class="stat-value">-</div>
+            </div>
+            <div class="stat-group">
+                <div class="stat-label">Elo Tier VI</div>
+                <div id="elo6" class="stat-value">-</div>
+            </div>
+        </div>
+
+        <a id="portalLink" class="portal-btn" target="_blank">View Clan on Wargaming.net</a>
+    </div>
+</div>
+
+<script>
+    const APP_ID = '02a11c34c34f9a3f73766e3646a1e21a'; // Replace with your ID
+    const REGION = 'eu'; // options: 'eu', 'na', 'asia'
+
+    async function fetchStats() {
+        const input = document.getElementById('clanInput').value.trim();
+        const resultDiv = document.getElementById('result');
+        const errorDiv = document.getElementById('error');
+        
+        errorDiv.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        if (!input) return;
+
+        try {
+            // 1. Get Clan ID
+            const searchRes = await fetch(`https://api.worldoftanks.${REGION}/wot/clans/list/?application_id=${APP_ID}&search=${input}&limit=1`);
+            const searchData = await searchRes.json();
+            
+            if (!searchData.data || searchData.data.length === 0) throw new Error("Clan not found.");
+            
+            const clanId = searchData.data[0].clan_id;
+
+            // 2. Get Data
+            const [ratingRes, shRes] = await Promise.all([
+                fetch(`https://api.worldoftanks.${REGION}/wot/clanratings/clans/?application_id=${APP_ID}&clan_id=${clanId}`),
+                fetch(`https://api.worldoftanks.${REGION}/wot/stronghold/claninfo/?application_id=${APP_ID}&clan_id=${clanId}`)
+            ]);
+
+            const rData = await ratingRes.json();
+            const sData = await shRes.json();
+
+            const ratings = rData.data[clanId] || {};
+            const shStats = sData.data[clanId]?.skirmish_statistics || {};
+
+            const totalWins = (shStats.win_10 || 0) + (shStats.win_8 || 0) + (shStats.win_6 || 0);
+            const totalBattles = (shStats.total_10 || 0) + (shStats.total_8 || 0) + (shStats.total_6 || 0);
+            const winRate = totalBattles > 0 ? ((totalWins / totalBattles) * 100).toFixed(2) : "0.00";
+
+            // 3. Update UI
+            document.getElementById('clanName').innerText = `[${searchData.data[0].tag}] ${searchData.data[0].name}`;
+            document.getElementById('totalWinRate').innerText = `${winRate}%`;
+            document.getElementById('elo10').innerText = ratings.fb_elo_rating_10?.value || 'N/A';
+            document.getElementById('elo8').innerText = ratings.fb_elo_rating_8?.value || 'N/A';
+            document.getElementById('elo6').innerText = ratings.fb_elo_rating_6?.value || 'N/A';
+            
+            // 4. Update the Link to match the requested format:
+            // Format: https://[region].wargaming.net/clans/wot/[clanId]/
+            const portalRegion = (REGION === 'na') ? 'com' : REGION;
+            document.getElementById('portalLink').href = `https://${portalRegion}.wargaming.net/clans/wot/${clanId}/`;
+            
+            resultDiv.style.display = 'block';
+
+        } catch (err) {
+            errorDiv.innerText = err.message;
+            errorDiv.style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
